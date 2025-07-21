@@ -1,18 +1,14 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
-import { getZestyAccountsRequest, postZestyAccountsRequest } from '../../utils/request.js'
-import { formatInstances, formatInstance } from '../../utils/formatters.js'
-import { z } from 'zod';
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
-export function registerAccountsTools(server: McpServer) {
+export function registerAccountsTools(server: McpServer, sdk: any) {
     server.tool(
         "get-instances",
         "Get all instances a user has access to",
         {},
         async () => {
-            const path = `/instances`;
-            const resp = await getZestyAccountsRequest(path);
+            const instances = await sdk.account.getInstances();
 
-            if (!resp) {
+            if (!instances) {
                 return {
                     content: [
                     {
@@ -23,8 +19,7 @@ export function registerAccountsTools(server: McpServer) {
                 };
             }
 
-            const instances = resp.data || [];
-            if (instances.length === 0) {
+            if (instances.data.length === 0) {
                 return {
                     content: [
                     {
@@ -35,12 +30,11 @@ export function registerAccountsTools(server: McpServer) {
                 };
             }
 
-            const formattedInstances = resp.data.map(formatInstances);
             return {
                 content: [
                     {
                     type: "text",
-                    text: `Active instances for user:\n\n${formattedInstances.join("\n")}`,
+                    text: JSON.stringify(instances.data),
                     },
                 ],
             };
@@ -50,42 +44,37 @@ export function registerAccountsTools(server: McpServer) {
     server.tool(
         "get-instance",
         "Gets a single instance by its ZUID",
-        {
-            ZUID: z.string().describe("ZUID of instance")
-        },
-        async ({ ZUID }) => {
-            const path = `/instances/${ZUID}`;
-            const resp = await getZestyAccountsRequest(path);
+        {},
+        async () => {
+            const instance = await sdk.account.getInstance();
 
-            if (!resp) {
+            if (!instance) {
                 return {
                     content: [
                     {
                         type: "text",
-                        text: `Failed to retrieve instance ${ZUID}`,
+                        text: `Failed to retrieve instance ${process.env.ZESTY_INSTANCE_ZUID}`,
                     },
                     ],
                 };
             }
 
-            const instances = resp.data || [];
-            if (instances.length === 0) {
+            if (instance.data.length === 0) {
                 return {
                     content: [
                     {
                         type: "text",
-                        text: `Instance with ZUID ${ZUID} not found`,
+                        text: `Current instance with ZUID ${process.env.ZESTY_INSTANCE_ZUID} not found`,
                     },
                     ],
                 };
             }
 
-            const formattedInstance = formatInstance(resp.data);
             return {
                 content: [
                     {
                     type: "text",
-                    text: `Instance found: :\n\n${formattedInstance}`,
+                    text: JSON.stringify(instance.data),
                     },
                 ],
             };
@@ -93,32 +82,39 @@ export function registerAccountsTools(server: McpServer) {
     );
 
     server.tool(
-        "create-instances",
-        "Creates an instance. This will automatically generate a new instance ZUID and the user making the Create Instance request will be set as the Owner",
-        {
-            name: z.string().describe("Name of instance")
-        },
-        async ({ name }) => {
-            const path = `/instances`;
-            const resp = await postZestyAccountsRequest(path, { name });
+        "get-instance-users",
+        "Returns all the users of the given instance ZUID",
+        {},
+        async () => {
+            const instanceUsers = await sdk.account.getInstanceUsers();
 
-            if (!resp) {
+            if (!instanceUsers) {
                 return {
                     content: [
                     {
                         type: "text",
-                        text: "Failed to create instance",
+                        text: `Failed to retrieve instance users for ${process.env.ZESTY_INSTANCE_ZUID}`,
                     },
                     ],
                 };
             }
 
-            const formattedInstance = formatInstance(resp.data);
+            if (instanceUsers.data.length === 0) {
+                return {
+                    content: [
+                    {
+                        type: "text",
+                        text: `Instance users for ${process.env.ZESTY_INSTANCE_ZUID} not found`,
+                    },
+                    ],
+                };
+            }
+
             return {
                 content: [
                     {
                     type: "text",
-                    text: `Successfully created instance:\n\n${formattedInstance}`,
+                    text: JSON.stringify(instanceUsers.data),
                     },
                 ],
             };
