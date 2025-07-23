@@ -1,14 +1,21 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { registerAllTools } from './tools/index.js'
+import { registerAllTools } from './tools/register.js';
+import { registerAllPrompts } from './prompts/register.js';
+import { registerAllResources } from './resources/register.js';
+import { VERSION } from './config/version.js';
+
+const MCP_SERVER_NAME = '@zesty-io/mcp-local-server'
 
 async function initializeServer() {
   const server = new McpServer({
-    name: '@zesty-io/mcp-local-server',
-    version: '1.0.0',
+    name: MCP_SERVER_NAME,
+    version: VERSION,
   })
 
-  registerAllTools(server)
+  registerAllTools(server);
+  registerAllPrompts(server);
+  registerAllResources(server);
 
   return server
 }
