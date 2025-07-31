@@ -10,16 +10,29 @@ export function registerItemVersionsTools(server: McpServer, sdk: any) {
             ITEM_ZUID: z.string().describe("Content Item ZUID")
         },
         async ({ MODEL_ZUID, ITEM_ZUID }) => {
-            const data = await sdk.instance.getItemVersions(MODEL_ZUID, ITEM_ZUID);
+            try {
+                const data = await sdk.instance.getItemVersions(MODEL_ZUID, ITEM_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -32,16 +45,29 @@ export function registerItemVersionsTools(server: McpServer, sdk: any) {
             VERSION: z.string().describe("Item Version")
         },
         async ({ MODEL_ZUID, ITEM_ZUID, VERSION }) => {
-            const data = await sdk.instance.getItemVersion(MODEL_ZUID, ITEM_ZUID, VERSION);
+            try {
+                const data = await sdk.instance.getItemVersion(MODEL_ZUID, ITEM_ZUID, VERSION);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

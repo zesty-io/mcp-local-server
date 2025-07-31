@@ -7,16 +7,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return all bins of an instance",
         {},
         async () => {
-            const data = await sdk.media.getBins();
+            try {
+                const data = await sdk.media.getBins();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return a bin",
         { BIN_ZUID: z.string().describe("Bin ZUID") },
         async ({ BIN_ZUID }) => {
-            const data = await sdk.media.getBin(BIN_ZUID);
+            try {
+                const data = await sdk.media.getBin(BIN_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -43,16 +69,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return groups of a bin",
         { BIN_ZUID: z.string().describe("Bin ZUID") },
         async ({ BIN_ZUID }) => {
-            const data = await sdk.media.getGroups(BIN_ZUID);
+            try {
+                const data = await sdk.media.getGroups(BIN_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -61,16 +100,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return a group",
         { GROUP_ZUID: z.string().describe("Group ZUID") },
         async ({ GROUP_ZUID }) => {
-            const data = await sdk.media.getGroup(GROUP_ZUID);
+            try {
+                const data = await sdk.media.getGroup(GROUP_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -79,16 +131,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return files of a bin",
         { BIN_ZUID: z.string().describe("Bin ZUID") },
         async ({ BIN_ZUID }) => {
-            const data = await sdk.media.getFiles(BIN_ZUID);
+            try {
+                const data = await sdk.media.getFiles(BIN_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -97,16 +162,29 @@ export function registerMediaTools(server: McpServer, sdk: any) {
         "Return a file",
         { FILE_ZUID: z.string().describe("File ZUID") },
         async ({ FILE_ZUID }) => {
-            const data = await sdk.media.getFile(FILE_ZUID);
+            try {
+                const data = await sdk.media.getFile(FILE_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

@@ -7,16 +7,29 @@ export function registerStylesheetVariablesTools(server: McpServer, sdk: any) {
         "Retrieves all stylesheet variables",
         {},
         async () => {
-            const data = await sdk.instance.fetchStylesheetVariables();
+            try {
+                const data = await sdk.instance.fetchStylesheetVariables();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerStylesheetVariablesTools(server: McpServer, sdk: any) {
         "Retrieves specific stylesheet variable",
         { VARIABLE_ZUID: z.string().describe("Stylesheet ZUID") },
         async ({ VARIABLE_ZUID }) => {
-            const data = await sdk.instance.fetchStylesheetVariable(VARIABLE_ZUID);
+            try {
+                const data = await sdk.instance.fetchStylesheetVariable(VARIABLE_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

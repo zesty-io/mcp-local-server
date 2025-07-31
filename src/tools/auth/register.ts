@@ -6,16 +6,29 @@ export function registerAuthTools(server: McpServer, sdk: any) {
         "Verify if session token is valid",
         {},
         async () => {
-            const session = await sdk.auth.verifyToken(process.env.ZESTY_SESSION_TOKEN);
+            try {
+                const session = await sdk.auth.verifyToken(process.env.ZESTY_SESSION_TOKEN);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(session),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(session),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

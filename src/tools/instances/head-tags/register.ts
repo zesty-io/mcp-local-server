@@ -7,16 +7,29 @@ export function registerHeadTagsTools(server: McpServer, sdk: any) {
         "Returns all headtags",
         {},
         async () => {
-            const data = await sdk.instance.getHeadTags();
+            try {
+                const data = await sdk.instance.getHeadTags();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerHeadTagsTools(server: McpServer, sdk: any) {
         "Returns a specific headtag",
         { HEADTAG_ZUID: z.string().describe("Headtag ZUID") },
         async ({ HEADTAG_ZUID }) => {
-            const data = await sdk.instance.getHeadTag(HEADTAG_ZUID);
+            try {
+                const data = await sdk.instance.getHeadTag(HEADTAG_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

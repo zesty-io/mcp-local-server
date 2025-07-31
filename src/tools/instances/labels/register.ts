@@ -7,16 +7,29 @@ export function registerLabelsTools(server: McpServer, sdk: any) {
         "Retrieves Labels",
         {},
         async () => {
-            const data = await sdk.instance.fetchLabels();
+            try {
+                const data = await sdk.instance.fetchLabels();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerLabelsTools(server: McpServer, sdk: any) {
         "Retrieves specific Label",
         { LABEL_ZUID: z.string().describe("Label ZUID") },
         async ({ LABEL_ZUID }) => {
-            const data = await sdk.instance.fetchLabel(LABEL_ZUID);
+            try {
+                const data = await sdk.instance.fetchLabel(LABEL_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

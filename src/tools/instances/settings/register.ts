@@ -7,16 +7,29 @@ export function registerSettingsTools(server: McpServer, sdk: any) {
         "Retrieves all settings",
         {},
         async () => {
-            const data = await sdk.instance.getSettings();
+            try {
+                const data = await sdk.instance.getSettings();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerSettingsTools(server: McpServer, sdk: any) {
         "Retrieves specific setting",
         { SETTING_ZUID: z.string().describe("Setting ZUID") },
         async ({ SETTING_ZUID }) => {
-            const data = await sdk.instance.getSetting(SETTING_ZUID);
+            try {
+                const data = await sdk.instance.getSetting(SETTING_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

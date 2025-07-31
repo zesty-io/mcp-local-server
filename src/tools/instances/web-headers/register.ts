@@ -7,16 +7,29 @@ export function registerWebHeadersTools(server: McpServer, sdk: any) {
         "Returns all legacy headers",
         {},
         async () => {
-            const data = await sdk.instance.getWebHeaders();
+            try {
+                const data = await sdk.instance.getWebHeaders();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

@@ -7,16 +7,29 @@ export function registerLangsTools(server: McpServer, sdk: any) {
         "Returns the non-deleted languages available for this instance",
         {},
         async () => {
-            const data = await sdk.instance.fetchLangs();
+            try {
+                const data = await sdk.instance.fetchLangs();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }

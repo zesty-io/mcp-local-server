@@ -7,16 +7,29 @@ export function registerAuditLogsTools(server: McpServer, sdk: any) {
         "Get all Audit trails of a given instance",
         {},
         async () => {
-            const data = await sdk.instance.getAuditLogs();
+            try {
+                const data = await sdk.instance.getAuditLogs();
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 
@@ -25,16 +38,29 @@ export function registerAuditLogsTools(server: McpServer, sdk: any) {
         "Get a specific audit trail by audit ZUID",
         { AUDIT_ZUID: z.string().describe("Audit ZUID") },
         async ({ AUDIT_ZUID }) => {
-            const data = await sdk.instance.getAuditLog(AUDIT_ZUID);
+            try {
+                const data = await sdk.instance.getAuditLog(AUDIT_ZUID);
 
-            return {
-                content: [
-                    {
-                    type: "text",
-                    text: JSON.stringify(data),
-                    },
-                ],
-            };
+                return {
+                    content: [
+                        {
+                        type: "text",
+                        text: JSON.stringify(data),
+                        },
+                    ],
+                };
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : String(error)
+                return {
+                    isError: true,
+                    content: [
+                        {
+                            type: 'text',
+                            text: `Error: ${errorMessage}`,
+                        },
+                    ],
+                }
+            }
         },
     );
 }
