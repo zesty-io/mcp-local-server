@@ -24,17 +24,79 @@ Add the following configuration to your application's Developer Settings:
       "command": "npx",
       "args": ["-y", "@zesty-io/mcp-local-server@latest"],
       "env": {
-        "ZESTY_SESSION_TOKEN": "your-access-or-session-token"
+        "ZESTY_SESSION_TOKEN": "your-access-or-session-token",
+        "ZESTY_INSTANCE_ZUID": "your-instance-zuid"
       }
     }
   }
 }
 ```
 
+To use dev environment, add the following environment variables in the configuration:
+
+```
+"ZESTY_AUTH_API": "https://auth.api.dev.zesty.io",
+"ZESTY_ACCOUNTS_API": "https://accounts.api.dev.zesty.io/v1",
+"ZESTY_INSTANCES_API": ".api.dev.zesty.io/v1",
+"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.dev.zesty.io"
+```
+
+To use stage environment, add the following environment variables in the configuration:
+
+```
+"ZESTY_AUTH_API": "https://auth.api.stage.zesty.io",
+"ZESTY_ACCOUNTS_API": "https://accounts.api.stage.zesty.io/v1",
+"ZESTY_INSTANCES_API": ".api.stage.zesty.io/v1",
+"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.stage.zesty.io"
+```
+
 ## Tools
 
-### Instances
-
+### Accounts
 - **get-instances** – Gets all instances a user has access to
 - **get-instance** – Gets a single instance by its ZUID
-- **create-instances** – Creates an instance. This will automatically generate a new instance ZUID and the user making the Create Instance request will be set as the Owner
+- **get-instance-users** – Returns all the users of the given instance ZUID
+
+### Instances
+- **get-audit-logs** – Get all Audit trails of a given instance
+- **get-audit-log** – Get a specific audit trail by audit ZUID
+- **get-fields** – Get all fields of a content model
+- **get-field** – Get a specific field of a content model
+- **get-head-tags** – Returns all headtags
+- **get-head-tag** – Returns a specific headtag
+- **get-item-labelings** – Returns item labelings of a content item in a content model
+- **get-item-labeling** – Returns a specific item labeling of a content item in a content model
+- **get-item-publishings** – Retrieves all item publishing records of a given item
+- **get-item-publishing** – Retrieve an item publishing record of a given item
+- **get-item-versions** – Retrieves all item versions of a given item
+- **get-item-version** – Retrieves specific item version of a given item
+- **get-items** – Returns the most recently edited item, by latest version and date created, on a collection content object
+- **get-item** – Returns a single content item object
+- **search-content-item** - Allows searching for contents by either ZUID, meta text values or path-related values
+- **get-labels** – Retrieves Labels
+- **get-label** – Retrieves specific Label
+- **get-langs** – Returns the non-deleted languages available for this instance
+- **get-links** – Retrieves all link created within an instance
+- **get-link** – Retrieves a specific link
+- **get-models** – Retrieves all models
+- **get-model** – Retrieves specific model
+- **get-redirects** – Retrieves all redirects
+- **get-redirect** – Retrieves specific redirect
+- **get-settings** – Retrieves all settings
+- **get-setting** – Retrieves specific setting
+- **get-stylesheet-variables** – Retrieves all stylesheet variables
+- **get-stylesheet-variable** – Retrieves specific stylesheet variable
+- **get-stylesheets** – Retrieves all stylesheets
+- **get-stylesheet** – Retrieves specific stylesheet
+- **get-web-headers** – Returns all legacy headers
+
+### Auth
+- **verify-session** – Verify if session token is valid
+
+### Media
+- **get-bins** – Return all bins of an instance
+- **get-bin** – Return a bin
+- **get-groups** – Return groups of a bin
+- **get-group** – Return a group
+- **get-files** – Return files of a bin
+- **get-file** – Return a file

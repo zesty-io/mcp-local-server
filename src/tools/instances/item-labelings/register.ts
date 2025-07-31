@@ -4,7 +4,7 @@ import { z } from 'zod';
 export function registerItemLabelingsTools(server: McpServer, sdk: any) {
     server.tool(
         "get-item-labelings",
-        "Retuns item labelings of a content item in a content model",
+        "Returns item labelings of a content item in a content model",
         {
             MODEL_ZUID: z.string().describe("Model ZUID"),
             ITEM_ZUID: z.string().describe("Content Item ZUID")
@@ -38,7 +38,7 @@ export function registerItemLabelingsTools(server: McpServer, sdk: any) {
 
     server.tool(
         "get-item-labeling",
-        "Retuns a specific item labeling of a content item in a content model",
+        "Returns a specific item labeling of a content item in a content model",
         {
             MODEL_ZUID: z.string().describe("Model ZUID"),
             ITEM_ZUID: z.string().describe("Content Item ZUID"),
