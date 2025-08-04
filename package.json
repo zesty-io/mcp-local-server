@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "keywords": [],
-  "author": "",
+  "author": "Matthew Labre",
   "license": "ISC",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zesty-io/mcp-local-server"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.14.0",
     "@zesty-io/sdk": "^1.1.0",
