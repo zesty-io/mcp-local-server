@@ -6,14 +6,14 @@ import { registerInstancesTools } from './instances/register.js';
 import { registerMediaTools } from './media/register.js';
 
 export function registerAllTools(server: McpServer) {
-    const opts = process.env.ZESTY_AUTH_API
-    ? {
-        authURL: process.env.ZESTY_AUTH_API,
-        accountsAPIURL: process.env.ZESTY_ACCOUNTS_API,
-        instancesAPIURL: `https://${process.env.ZESTY_INSTANCE_ZUID}${process.env.ZESTY_INSTANCES_API}`,
-        mediaAPIURL: process.env.ZESTY_MEDIA_MANAGER_API
-      }
-    : undefined;
+  const opts = process.env.ZESTY_AUTH_API
+  ? {
+      authURL: process.env.ZESTY_AUTH_API,
+      accountsAPIURL: process.env.ZESTY_ACCOUNTS_API,
+      instancesAPIURL: `https://${process.env.ZESTY_INSTANCE_ZUID}${process.env.ZESTY_INSTANCES_API}`,
+      mediaAPIURL: process.env.ZESTY_MEDIA_MANAGER_API
+    }
+  : undefined;
 
   const sdk = new SDK(process.env.ZESTY_INSTANCE_ZUID, process.env.ZESTY_SESSION_TOKEN, opts);
 
