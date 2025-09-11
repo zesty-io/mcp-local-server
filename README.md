@@ -13,6 +13,16 @@ This MCP server can be used with any application that supports the Model Context
 - [Cursor IDE](https://docs.cursor.com/context/model-context-protocol)
 - [Visual Studio Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
 
+### Installation
+
+Build from source
+
+```
+git clone https://github.com/zesty-io/mcp-local-server.git
+cd mcp-local-server
+npm run build
+```
+
 ### Add configuration for the Zesty MCP Server
 
 Add the following configuration to your application's Developer Settings:
@@ -21,8 +31,8 @@ Add the following configuration to your application's Developer Settings:
 {
   "mcpServers": {
     "zesty": {
-      "command": "npx",
-      "args": ["-y", "@zesty-io/mcp-local-server@latest"],
+      "command": "path-file/bin/node",
+      "args": ["path-file/mcp-local-server/build/index.js"],
       "env": {
         "ZESTY_SESSION_TOKEN": "your-access-or-session-token",
         "ZESTY_INSTANCE_ZUID": "your-instance-zuid"
