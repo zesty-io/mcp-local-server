@@ -42,24 +42,6 @@ Add the following configuration to your application's Developer Settings:
 }
 ```
 
-To use dev environment, add the following environment variables in the configuration:
-
-```
-"ZESTY_AUTH_API": "https://auth.api.dev.zesty.io",
-"ZESTY_ACCOUNTS_API": "https://accounts.api.dev.zesty.io/v1",
-"ZESTY_INSTANCES_API": ".api.dev.zesty.io/v1",
-"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.dev.zesty.io"
-```
-
-To use stage environment, add the following environment variables in the configuration:
-
-```
-"ZESTY_AUTH_API": "https://auth.api.stage.zesty.io",
-"ZESTY_ACCOUNTS_API": "https://accounts.api.stage.zesty.io/v1",
-"ZESTY_INSTANCES_API": ".api.stage.zesty.io/v1",
-"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.stage.zesty.io"
-```
-
 ## Tools
 
 ### Accounts
