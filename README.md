@@ -13,13 +13,85 @@ This MCP server can be used with any application that supports the Model Context
 - [Cursor IDE](https://docs.cursor.com/context/model-context-protocol)
 - [Visual Studio Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
 
-### Installation
+### Installation Requirements
 
-Build from source
+Before setting up the project, ensure you have Git and Node.js (version 20 or higher) installed on your machine:
+
+#### Install Git
+
+Git is required to clone the repository and manage version control.
+
+- **Windows:**
+  1. Download the installer from [git-scm.com](https://git-scm.com/download/win).
+  2. Run the installer and follow the on-screen instructions.
+
+- **macOS:**
+  - **Option 1 (Homebrew):** Run `brew install git` in your terminal.
+  - **Option 2 (Installer):** Download from [git-scm.com](https://git-scm.com/download/mac).
+
+- **Linux (Ubuntu/Debian):**
+  ```bash
+  sudo apt update
+  sudo apt install git
+  ```
+
+Verify Installation: Open your terminal or command prompt and run:
+```
+git --version
+```
+
+#### Install Node.js (v20+)
+
+This project requires Node.js v20.0.0 or greater.
+
+- **Option A: Direct Installer:**
+  1. Visit the [official Node.js website](https://nodejs.org).
+  2. Click on the LTS (Long Term Support) version (ensure it is v20 or higher) or the Current version.
+  3. Download and run the installer for your operating system
+
+- **Option B: Using NVM:**
+
+  Using a version manager like nvm allows you to switch between Node versions easily and avoids permission issues.
+  - **macOS / Linux**:
+    1. Install nvm using the official script
+    ```
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    ```
+    2. Install Node 20
+    ```
+    nvm install 20
+    nvm use 20
+    ```
+
+  - **Windows**:
+    1. Download [nvm-windows installer](https://github.com/coreybutler/nvm-windows/releases)
+    2. Run the installer
+    3. Open PowerShell or Command Prompt (Run as Administrator) and run:
+    ```
+    nvm install 20
+    nvm use 20
+    ```
+
+Verify Installation: Ensure you are on version 20+ by running:
+```
+node -v
+```
+
+### Installation
+Clone source code
 
 ```
 git clone https://github.com/zesty-io/mcp-local-server.git
+```
+
+Build source code
+```
 cd mcp-local-server
+```
+```
+npm i
+```
+```
 npm run build
 ```
 
@@ -31,34 +103,21 @@ Add the following configuration to your application's Developer Settings:
 {
   "mcpServers": {
     "zesty": {
-      "command": "path-file/bin/node",
-      "args": ["path-file/mcp-local-server/build/index.js"],
+      "command": "node",
+      "args": ["/Users/your_username/path_file/mcp-local-server/build/index.js"],
       "env": {
-        "ZESTY_SESSION_TOKEN": "your-access-or-session-token",
-        "ZESTY_INSTANCE_ZUID": "your-instance-zuid"
+        "ZESTY_SESSION_TOKEN": "your_access_or_session_token",
+        "ZESTY_INSTANCE_ZUID": "your_instance_zuid"
       }
     }
   }
 }
 ```
 
-To use dev environment, add the following environment variables in the configuration:
+> Ensure to update `args` with your username and correct path file.
 
-```
-"ZESTY_AUTH_API": "https://auth.api.dev.zesty.io",
-"ZESTY_ACCOUNTS_API": "https://accounts.api.dev.zesty.io/v1",
-"ZESTY_INSTANCES_API": ".api.dev.zesty.io/v1",
-"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.dev.zesty.io"
-```
-
-To use stage environment, add the following environment variables in the configuration:
-
-```
-"ZESTY_AUTH_API": "https://auth.api.stage.zesty.io",
-"ZESTY_ACCOUNTS_API": "https://accounts.api.stage.zesty.io/v1",
-"ZESTY_INSTANCES_API": ".api.stage.zesty.io/v1",
-"ZESTY_MEDIA_MANAGER_API": "https://media-manager.api.stage.zesty.io"
-```
+### Restart Claude Desktop 
+Make sure to restart Claude Desktop or any of the applications used after configuration to ensure that the Zesty MCP Server gets loaded.
 
 ## Tools
 
