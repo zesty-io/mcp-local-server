@@ -36,7 +36,7 @@ Git is required to clone the repository and manage version control.
   ```
 
 Verify Installation: Open your terminal or command prompt and run:
-```
+```bash
 git --version
 ```
 
@@ -54,11 +54,11 @@ This project requires Node.js v20.0.0 or greater.
   Using a version manager like nvm allows you to switch between Node versions easily and avoids permission issues.
   - **macOS / Linux**:
     1. Install nvm using the official script
-    ```
+    ```bash
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     ```
     2. Install Node 20
-    ```
+    ```bash
     nvm install 20
     nvm use 20
     ```
@@ -67,31 +67,31 @@ This project requires Node.js v20.0.0 or greater.
     1. Download [nvm-windows installer](https://github.com/coreybutler/nvm-windows/releases)
     2. Run the installer
     3. Open PowerShell or Command Prompt (Run as Administrator) and run:
-    ```
+    ```bash
     nvm install 20
     nvm use 20
     ```
 
 Verify Installation: Ensure you are on version 20+ by running:
-```
+```bash
 node -v
 ```
 
 ### Installation
 Clone source code
 
-```
+```bash
 git clone https://github.com/zesty-io/mcp-local-server.git
 ```
 
 Build source code
-```
+```bash
 cd mcp-local-server
 ```
-```
+```bash
 npm i
 ```
-```
+```bash
 npm run build
 ```
 
@@ -100,7 +100,7 @@ npm run build
 To use the Zesty MCP Server, you must add it to your application's configuration file (e.g. `claude_desktop_config.json` in Claude Desktop Developer Settings):
 
 Add the following object to the `mcpServers` block:
-```
+```json
 {
   "mcpServers": {
     "zesty": {
