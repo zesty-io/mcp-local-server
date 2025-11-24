@@ -6,16 +6,16 @@ Zesty MCP Server implements the [Model Context Protocol](https://modelcontextpro
 
 ### Prerequisites
 
-Before using the MCP server, you need to have a user account or an active access token
+Before using the MCP server, ensure you have:
+1. A Zesty.io user account or an active access token
+2. Git and Node.js (version 20 or higher) installed on your machine.
 
-This MCP server can be used with any application that supports the Model Context Protocol:
+This MCP server supports any compatible with the Model Context Protocol, including:
 - [Claude Desktop](https://modelcontextprotocol.io/quickstart/user)
 - [Cursor IDE](https://docs.cursor.com/context/model-context-protocol)
 - [Visual Studio Code](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
 
-### Installation Requirements
-
-Before setting up the project, ensure you have Git and Node.js (version 20 or higher) installed on your machine:
+### System Setup
 
 #### Install Git
 
@@ -95,16 +95,17 @@ npm i
 npm run build
 ```
 
-### Add configuration for the Zesty MCP Server
+### Configuration
 
-Add the following configuration to your application's Developer Settings:
+To use the Zesty MCP Server, you must add it to your application's configuration file (e.g. `claude_desktop_config.json` in Claude Desktop Developer Settings):
 
+Add the following object to the `mcpServers` block:
 ```
 {
   "mcpServers": {
     "zesty": {
       "command": "node",
-      "args": ["/Users/your_username/path_file/mcp-local-server/build/index.js"],
+      "args": ["/ABSOLUTE/PATH/TO/mcp-local-server/build/index.js"],
       "env": {
         "ZESTY_SESSION_TOKEN": "your_access_or_session_token",
         "ZESTY_INSTANCE_ZUID": "your_instance_zuid"
@@ -114,10 +115,9 @@ Add the following configuration to your application's Developer Settings:
 }
 ```
 
-> Ensure to update `args` with your username and correct path file.
-
-### Restart Claude Desktop 
-Make sure to restart Claude Desktop or any of the applications used after configuration to ensure that the Zesty MCP Server gets loaded.
+**Important**
+- **Absolute Path**: You must replace `/ABSOLUTE/PATH/TO/...` with the full file path on your machine starting with `/Users`. Relative paths (e.g. `./build` will not work)
+- Restart: You must restart Claude Desktop (or any of the application you used) after savuing the configuration for changes to take effect. 
 
 ## Tools
 
@@ -125,6 +125,9 @@ Make sure to restart Claude Desktop or any of the applications used after config
 - **get-instances** – Gets all instances a user has access to
 - **get-instance** – Gets a single instance by its ZUID
 - **get-instance-users** – Returns all the users of the given instance ZUID
+
+### Auth
+- **verify-session** – Verify if session token is valid
 
 ### Instances
 - **get-audit-logs** – Get all Audit trails of a given instance
@@ -158,9 +161,6 @@ Make sure to restart Claude Desktop or any of the applications used after config
 - **get-stylesheets** – Retrieves all stylesheets
 - **get-stylesheet** – Retrieves specific stylesheet
 - **get-web-headers** – Returns all legacy headers
-
-### Auth
-- **verify-session** – Verify if session token is valid
 
 ### Media
 - **get-bins** – Return all bins of an instance
