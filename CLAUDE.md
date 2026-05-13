@@ -1,7 +1,3 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Overview
 
 **Zesty MCP Local Server** is a Model Context Protocol (MCP) server implementation that bridges Zesty.io instances with AI tools (Claude, Cursor, VS Code). It exposes Zesty's content management APIs as MCP tools, enabling AI assistants to query and interact with Zesty instances.
